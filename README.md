@@ -1,5 +1,9 @@
 # Wordpress Publish to Netlify Plugin
 
+Plugin to trigger a Netlify Build Hook!
+
+[More information:](https://www.netlify.com/docs/webhooks/)
+
 ```php
 
   /**
