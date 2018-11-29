@@ -2,9 +2,9 @@
 
 [![License](https://img.shields.io/npm/l/express.svg)](https://github.com/dblodorn/wp-publish-to-nelify/blob/master/LICENSE)
 
-Plugin to trigger a Netlify Build Hook!
+Plugin to trigger a Netlify Web Hook!
 
-[More information:](https://www.netlify.com/docs/webhooks/)
+More information on Netlify Webhooks: [https://www.netlify.com/docs/webhooks/](https://www.netlify.com/docs/webhooks/)
 
 ```php
 
