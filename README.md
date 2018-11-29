@@ -1,5 +1,7 @@
 # Wordpress Publish to Netlify Plugin
 
+[![License](https://img.shields.io/npm/l/express.svg)](https://github.com/dblodorn/wp-publish-to-nelify/blob/master/LICENSE)
+
 Plugin to trigger a Netlify Build Hook!
 
 [More information:](https://www.netlify.com/docs/webhooks/)
