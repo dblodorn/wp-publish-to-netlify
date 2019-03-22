@@ -9,7 +9,7 @@
  * Author URI:        https://dain.kim
  * Text Domain:       wp-publish-to-netlify
  * Domain Path:       /languages
- * Version:           0.1.0
+ * Version:           0.1.1
  * License:           MIT
  *
  * @package           WP Publish to Netlify
@@ -54,20 +54,30 @@ if ( ! class_exists( 'WPPTN_Plugin' ) ) {
     public function admin_bar_menu_production( $wp_admin_bar ) {
 			$args = array(
 				'id'    => $this->prefix.'-publish-production',
-				'title' => __( 'Publish Production Site', $this->slug ),
+				'title' => __( '
+          <div style="display: flex; flex-direction: row;">
+            <span>Publish Production Site</span>
+            <div style="display: flex; align-items: center; padding-left: 10px;">
+              <img src=" ' . $this->netlify_badge . ' "/>
+            </div>
+          </div>', $this->slug ),
 				'href'  => $this->wpptn_netlify_webhooks(),
 			);
 			$wp_admin_bar->add_node( $args );
 		}
 
-
     // Add Production Webhook to options
     public function wpptn_set_options(){
       $opt = get_option( $this->prefix.'option');
-      if(isset($opt)){
+      if(isset($opt['webhook_url'])){
         $this->webhook_url = $opt['webhook_url'];
       }else{
         $this->webhook_url = null;
+      }
+      if(isset($opt['netlify_badge'])){
+        $this->netlify_badge = $opt['netlify_badge'];
+      }else{
+        $this->netlify_badge = null;
       }
     }
 
@@ -105,14 +115,17 @@ if ( ! class_exists( 'WPPTN_Plugin' ) ) {
               wp_nonce_field( $this->slug );
               $this->wpptn_set_options();
             ?>
-            <div>
+            <div style="display: flex; flex-direction: column;">
               <hr>
               <h2>Production:</h2>
               <label>Production Webhook URL:</label>
-              <input name="<?php echo $this->prefix; ?>option[webhook_url]" type="text" id="input_url" value="<?php  echo $this->webhook_url ?>" class="regular-text" placeholder="https://api.netlify.com/build_hooks/xxxxxxxxxxxxxxxxxxxxxxxx" />
+              <input style="width: 100%; max-width: 700px;" name="<?php echo $this->prefix; ?>option[webhook_url]" type="text" id="input_url" value="<?php echo $this->webhook_url ?>" class="regular-text" placeholder="https://api.netlify.com/build_hooks/xxxxxxxxxxxxxxxxxxxxxxxx" />
+              <br>
+              <label>Netlify Build Status Badge:</label>
+              <input style="width: 100%; max-width: 700px;" name="<?php echo $this->prefix; ?>option[netlify_badge]" type="text" id="input_url" value="<?php echo $this->netlify_badge ?>" class="regular-text" placeholder="Past Build Status Image Here." />
             </div>
             <p class="submit">
-              <input type="submit" name="Submit" class="button-primary" value="Save Production Webhook"/>
+              <input type="submit" name="Submit" class="button-primary" value="Save Netlify Options"/>
             </p>
             <hr>
           </form>
